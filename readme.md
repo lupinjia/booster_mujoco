@@ -1,5 +1,7 @@
 # booster_mujoco
 
+![Mujoco Simulation](./docs/20260807_booster_mujoco_demo.gif)
+
 C++ MuJoCo 仿真器，适配 [booster_robotics_sdk](https://github.com/booster-robotics) 的 DDS 接口。
 代码框架与 [unitree_mujoco](https://github.com/unitreerobotics/unitree_mujoco) 保持一致，仅将
 `unitree_sdk2` 的调用替换为 `booster_robotics_sdk`。
