@@ -1,0 +1,40 @@
+robot: "k1"  # Robot name, "t1", "k1"
+robot_scene: "scene.xml" # Robot scene, /booster_robots/[robot]/scene.xml 
+
+domain_id: 1    # Domain id
+interface: "lo" # Interface 
+
+use_joystick: 1 # Simulate Booster RemoteControllerState using a gamepad
+joystick_type: "betop" # support "xbox", "switch" , "yahboom" and "betop" gamepad layout
+joystick_device: "/dev/input/js0" # Device path
+joystick_bits: 16 # Some game controllers may only have 8-bit accuracy
+
+print_scene_information: 1 # Print link, joint and sensors information of robot
+
+enable_elastic_band: 1 # Virtual spring band, used for lifting humanoid robots
+
+# Depth camera settings
+enable_depth: 0
+depth_width: 80
+depth_height: 60
+crop_left: 0
+far_clip: 2.0
+near_clip: 0.1
+depth_dt: 0.1 # Depth camera update interval (s)
+visualize_opencv: 1 # Visualize depth image using OpenCV
+# Noise settings for depth camera
+add_depth_stereo_noise: 0
+far_noise: 0.08
+near_noise: 0.02
+stereo_full_block_artifacts_prob: 0.004
+stereo_full_block_height_mean_std: [30, 1.5]
+stereo_full_block_width_mean_std: [3, 0.01]
+stereo_full_block_values: [0.0, 0.25, 0.5, 1.0, 3.0]
+stereo_half_block_spark_prob: 0.01
+stereo_half_block_value: 3.
+add_sky_artifacts: 0
+sky_artifacts_prob: 0.0002
+sky_artifacts_far_distance: 2.2
+sky_artifacts_values: [0.6, 1., 1.2, 1.5, 1.8]
+sky_artifacts_height_mean_std: [2, 3]
+sky_artifacts_width_mean_std: [2, 3]
