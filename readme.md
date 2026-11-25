@@ -68,6 +68,17 @@ cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j$(nproc)
 ```
 
+> **注意**：本项目依赖 MuJoCo 3.2.7 的 `mjvSceneState` 接口（该接口在 3.3.3 及之后版本中被移除）。
+> 若系统安装的 MuJoCo 版本更高（如 3.13.0），需额外指定 3.2.7 的安装路径，否则编译会因找不到
+> `mjvSceneState` 而失败：
+>
+> ```bash
+> cmake .. -DCMAKE_BUILD_TYPE=Release \
+>   -Dmujoco_DIR=/home/lupinjia/mujoco-3.2.7-install/lib/cmake/mujoco
+> ```
+>
+> 该路径会被写入二进制文件的 RPATH，运行时可正确加载 `libmujoco.so.3.2.7`。
+
 ## 运行
 
 DDS 需要加载 FastDDS 配置文件（UDP 白名单 + SHM 传输）：

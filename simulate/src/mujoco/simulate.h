@@ -259,6 +259,7 @@ namespace mujoco
 
     // abstract visualization
     mjvScene scn;
+    mjvScene depth_scn;
     mjvCamera &cam;
     mjvOption &opt;
     mjvPerturb &pert;

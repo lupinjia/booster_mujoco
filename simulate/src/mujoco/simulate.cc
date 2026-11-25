@@ -2044,6 +2044,7 @@ namespace mujoco
         near_clip_(near_clip), far_clip_(far_clip)
   {
     mjv_defaultScene(&scn);
+    mjv_defaultScene(&depth_scn);
     mjv_defaultSceneState(&scnstate_);
   }
 
@@ -2599,6 +2600,7 @@ namespace mujoco
 
     // re-create scene and context
     mjv_makeScene(this->m_, &this->scn, kMaxGeom);
+    mjv_makeScene(this->m_, &this->depth_scn, kMaxGeom);
     if (this->is_passive_)
     {
       mjopt_prev_ = m_->opt;
@@ -2861,8 +2863,8 @@ namespace mujoco
     depth_rect.width = depth_width_;
     depth_rect.height = depth_height_;
     mjv_updateScene(this->m_, this->d_,
-                    &this->opt, &this->pert, &this->depth_cam, mjCAT_ALL, &this->scn);
-    mjr_render(depth_rect, &this->scn, &this->platform_ui->mjr_context());
+                    &this->opt, &this->pert, &this->depth_cam, mjCAT_ALL, &this->depth_scn);
+    mjr_render(depth_rect, &this->depth_scn, &this->platform_ui->mjr_context());
 
     // show last loading error
     if (this->load_error[0])
@@ -3006,8 +3008,8 @@ namespace mujoco
       depth_rect.width = depth_width_;
       depth_rect.height = depth_height_;
       mjv_updateScene(this->m_, this->d_,
-                      &this->opt, &this->pert, &this->depth_cam, mjCAT_ALL, &this->scn);
-      mjr_render(depth_rect, &this->scn, &this->platform_ui->mjr_context());
+                      &this->opt, &this->pert, &this->depth_cam, mjCAT_ALL, &this->depth_scn);
+      mjr_render(depth_rect, &this->depth_scn, &this->platform_ui->mjr_context());
       
       // Read depth buffer
       if(depth_buffer_ == nullptr)
@@ -3067,6 +3069,8 @@ namespace mujoco
     {
       mjv_defaultScene(&this->scn);
       mjv_makeScene(nullptr, &this->scn, kMaxGeom);
+      mjv_defaultScene(&this->depth_scn);
+      mjv_makeScene(nullptr, &this->depth_scn, kMaxGeom);
     }
 
     if (!this->platform_ui->IsGPUAccelerated())
@@ -3220,6 +3224,7 @@ namespace mujoco
 
     const MutexLock lock(this->mtx);
     mjv_freeScene(&this->scn);
+    mjv_freeScene(&this->depth_scn);
     if (is_passive_)
     {
       mjv_freeSceneState(&scnstate_);
